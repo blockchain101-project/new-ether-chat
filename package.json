@@ -2,6 +2,7 @@
   "name": "newetherchat",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +11,8 @@
   "dependencies": {
     "next": "10.0.2",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "semantic-ui-react": "^2.0.1"
   },
   "devDependencies": {
     "truffle": "^5.1.54"
