@@ -10,7 +10,7 @@ import 'semantic-ui-css/semantic.min.css';
 const Login = () => {
   const router = useRouter();
 
-  const onSubmit = (e) => {  
+  const onSubmit = () => {  
     router.push({
       pathname: '/home'
     });
