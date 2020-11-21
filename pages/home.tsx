@@ -2,7 +2,7 @@ import { Container, Grid, Label } from "semantic-ui-react";
 import React, { Component } from "react";
 import FriendList from "../views/friendLIst";
 import Chat from "../views/chat";
-import HomeHeader from "../views/HomeHeader";
+import HomeHeader from "../views/homeHeader";
 
 class Home extends Component {
   constructor(props){
