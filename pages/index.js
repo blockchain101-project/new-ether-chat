@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import {
-  Card, Container, Header
-} from "semantic-ui-react"
+import Login from '../views/login';
+
 
 class Index extends Component {
   constructor(props) {
@@ -10,11 +9,7 @@ class Index extends Component {
 
   render() {
     return (
-      <Container>
-        <Card>
-          <Header>Welcome to chat</Header>
-        </Card>
-      </Container>
+      <Login/>
     )
   };
 }
