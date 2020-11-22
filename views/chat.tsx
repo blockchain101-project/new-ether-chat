@@ -6,17 +6,23 @@ const Chat = () => {
   useEffect(() => {
     setHeight(window.innerHeight);
   }, [])
+
+  const getUserMessages = (contractAddress: string) => {
+    return [
+    <List.Item style={{textAlign: 'left'}}>
+      <Label size='large' color='blue'>messages</Label>
+    </List.Item>
+    ]
+  }
+
+  const messages = getUserMessages("this user")
+  messages.concat(getUserMessages("other user"));
   
   return (
     <Container>
       <Segment style={{width: '90%', height: (height-150) + "px"}} color='blue'>
         <List>
-          <List.Item style={{textAlign: 'left'}}>
-            <Label size='large' color='blue'>left</Label>
-          </List.Item>
-          <List.Item style={{textAlign: 'right'}}>
-            <Label size='large' color='blue'>right</Label>
-          </List.Item>
+          {messages}
         </List>
       </Segment>
     </Container>

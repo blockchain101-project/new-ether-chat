@@ -15,7 +15,12 @@ const FriendList:React.FC = () => {
     setOpenAC(!openAC);
   }
 
-  const friendList = [];
+  const getFriendList = () => {
+    //get friend list
+    return [<List.Item>asdf</List.Item>]
+  }
+
+  const friendList = getFriendList();
 
   return (
     <Container>

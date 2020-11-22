@@ -18,6 +18,10 @@ const AddContractModal:React.FC<Prop> = (props) => {
     setOpen(!open);
   }, [props.open])
 
+  const confirmAddContract = () => {
+    setOpen(!open);
+  }
+
   const closeModal = () => {
     setOpen(!open);
   }
@@ -29,7 +33,7 @@ const AddContractModal:React.FC<Prop> = (props) => {
         <input size={width*5/100} placeholder='public key' style={{marginLeft: '10px'}}></input>
       </Modal.Content>
       <Modal.Actions>
-        <Button>confirm</Button>
+        <Button onClick={() => {confirmAddContract()}}>confirm</Button>
         <Button onClick={() => {closeModal()}}>cancel</Button>
       </Modal.Actions>
     </Modal>
