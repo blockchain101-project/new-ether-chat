@@ -3,7 +3,7 @@ import React, {Component, useEffect, useState} from 'react'
 import { Button, Header, Label, Menu } from 'semantic-ui-react';
 
 const HomeHeader:React.FC = () => {
-  const [isMetamask, setIsMetamask] = useState(false);
+  const [isMetamask, setIsMetamask] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -25,10 +25,10 @@ const HomeHeader:React.FC = () => {
   return (
     <Menu fixed='top' size='large'>
       <Menu.Item position='left'>
-      <Label color='blue' size='large'>Welcome to chat!</Label>
+      <Label color='blue' size='large'>Current network:</Label>
       </Menu.Item>
       <Menu.Item position='right'>
-        <Label color='blue' size='large'>0xasdfasdfasdfasdf : 0 Eth</Label>
+        <Label color='blue' size='large'>0xasdfasdfasdfasdf: 0 Eth</Label>
       </Menu.Item>
     </Menu>
   )
