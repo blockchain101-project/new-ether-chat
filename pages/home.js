@@ -9,6 +9,7 @@ import Web3Container from '../lib/Web3Container';
 function WebHome(props) {
   const [account, setAccount] = useState('');
   const [balance, setBalance] = useState(1.0);
+  const [selected, setSelected] = useState('none');
   const router = useRouter();
 
   const getEthBalance = async () => {
@@ -22,6 +23,11 @@ function WebHome(props) {
     setAccount(props.accounts[0]);
     getEthBalance();
   }, [])
+
+  const handleSelect = (name) => {
+    setSelected(name);
+    console.log(selected)
+  }
 
   // storeValue = async () => {
   //   const { accounts, contract } = this.props
@@ -40,7 +46,7 @@ function WebHome(props) {
       <HomeHeader account={account} balance={balance} web3={props.web3} accounts={props.accounts} contract={props.contract}/>
       <Grid columns={2} style={{margin: 0, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
         <Grid.Column style={{width: '30%'}}>
-          <FriendList web3={props.web3} accounts={props.accounts} contract={props.contract}/>
+          <FriendList onSelect={() => {handleSelect}} web3={props.web3} accounts={props.accounts} contract={props.contract}/>
         </Grid.Column>
         <Grid.Column style={{width: '70%'}}>
           <Chat selectedContract={'none'} web3={props.web3} accounts={props.accounts} contract={props.contract}/>

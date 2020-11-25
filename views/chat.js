@@ -4,30 +4,82 @@ import {Container, Card, Segment, Label, Icon, List, Button, Grid, Input} from '
 function Chat(props){
   const [height, setHeight] = useState(0);
   const [text, setText] = useState('');
+  const [friendList, setFriendList] = useState([]);
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
 
-  const sendMessage = async (message) => {
-    const { web, accounts, contract } = props
-    const member = await contract.methods.members(accounts[0]).call({ from: accounts[0] });
-    alert(member.isMember);
-    // await contract.methods.sendMessage(accounts[0], message).send({ from: accounts[0] });
-    // contract.once('messageSentEvent', {
-    //   filter: {}}, function(error, event){ console.log(event) });
+  const sendMessage = async (address, message) => {
+    const { web, accounts, contract } = props;
+    console.log(address);
+    await contract.methods.sendMessage(address, message).send({ from: accounts[0] });
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     setHeight(window.innerHeight);
+    const temp = await getPastFriendList();
+    let newTemp = [];
+    for(var i=0;i<temp.length;i++){
+      newTemp.push(temp[i].returnValues[1]);
+    }
+    setFriendList(newTemp);
+    const tempMessages = await getUserMessages(friendList[0])
+    setMessages(tempMessages);
   }, [])
 
-  const getUserMessages = (contractAddress) => {
-    return [
-    <List.Item style={{textAlign: 'left'}}>
-      <Label size='large' color='blue'>messages</Label>
-    </List.Item>
-    ]
+  const getUserMessages = async (contractAddress) => {
+    const tempMessage = await getMessage(contractAddress);
+    let tempList = [];
+
+    for (var i=0;i<tempMessage[0].length;i++) {
+      tempList.push(
+      <List.Item style={{textAlign: 'left'}}>
+        <Label size='large' color='blue'>{tempMessage[0][i]}</Label>
+      </List.Item>
+      )
+    }
+
+    for (var i=0;i<tempMessage[1].length;i++) {
+      tempList.push(
+        <List.Item style={{textAlign: 'right'}}>
+          <Label size='large' color='blue'>{tempMessage[1][i]}</Label>
+        </List.Item>
+      )
+    }
+    return tempList
   }
 
-  const messages = getUserMessages("this user")
-  messages.concat(getUserMessages("other user"));
+  const getPastFriendList = async () => {
+    const { web, accounts, contract } = props;
+    return await props.contract.getPastEvents('addFriendEvent',{
+      filter: {from: accounts},
+    })
+  }
+
+  const getMessage = async (id) => {
+    const { web, accounts, contract } = props;
+    const tempDataSent = await props.contract.getPastEvents('messageSentEvent',{
+      filter: {from: accounts},
+    })
+    const tempDataReceived = await props.contract.getPastEvents('messageSentEvent',{
+      filter: {to: accounts},
+    })
+    const tempMessageSent = [];
+    const tempMessageReceived = [];
+
+    for(var i=0;i<tempDataSent.length;i++){
+      if(tempDataSent[i].returnValues[1] == id){
+        tempMessageSent.push(tempData[i].returnValues[2])
+      }
+    }
+
+    for(var i=0;i<tempDataReceived.length;i++){
+      if(tempDataReceived[i].returnValues[1] == id){
+        tempMessageReceived.push(tempData[i].returnValues[2])
+      }
+    }
+
+    return [tempMessageReceived, tempMessageSent]
+  }
   
   return (
     <Container>
@@ -37,7 +89,9 @@ function Chat(props){
         </List>
       </Segment>
       <Segment style={{width: '90%'}} color='blue'>
-        <Input style={{width: '100%'}} action={{color: 'blue', labelPosition: 'right', icon: 'send', content: 'Send', onClick: (e)=>sendMessage(e.target.value)}}></Input>
+        <Input style={{width: '100%'}} 
+        onChange={e => setMessage(e.target.value)}
+        action={{color: 'blue', labelPosition: 'right', icon: 'send', content: 'Send', onClick: (e)=>{sendMessage(friendList[0], message)}}}></Input>
       </Segment>
     </Container>
   )

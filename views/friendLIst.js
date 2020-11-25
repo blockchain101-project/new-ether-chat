@@ -14,8 +14,11 @@ function FriendList(props){
     setContractList(temp);
   }, [])
   
-  useEffect(() => {}, [openAC, selected, contractList])
+  useEffect(() => {}, [openAC, contractList])
 
+  useEffect(() => {
+    props.onSelect(selected);
+  }, [selected])
   const openAddContract = () => {
     setOpenAC(!openAC);
   }
@@ -49,7 +52,7 @@ function FriendList(props){
     <Container>
       <Segment style={{width: '90%', height: ((height-150) + "px"), textAlign: 'center'}} color='blue'>
         <Header as='h2' style={{textAlign: 'left'}}>Contract List:</Header>
-        <Menu fluid vertical borderless color='blue'>
+        <Menu fluid vertical borderless color='blue' onItemClick={() => {handleSelectChange()}}>
           {contractList}
         </Menu>
         <AddContractModal

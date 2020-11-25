@@ -64,7 +64,6 @@ contract Chatnew{
     }
     
     function sendMessage(address add, string memory message)public onlyMember{
-        require(relationships[add][msg.sender] == RelationshipState.Friend);
         emit messageSentEvent(msg.sender, add, message);
         
         if (members[add].messageStartBlock == 0) {
