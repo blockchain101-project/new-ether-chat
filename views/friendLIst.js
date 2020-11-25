@@ -27,6 +27,8 @@ function FriendList(props){
     const { web, accounts, contract } = props;
     return await props.contract.getPastEvents('addFriendEvent',{
       filter: {from: accounts},
+        fromBlock: 0,
+        toBlock: 'latest',
     })
   }
 
@@ -52,7 +54,7 @@ function FriendList(props){
     <Container>
       <Segment style={{width: '90%', height: ((height-150) + "px"), textAlign: 'center'}} color='blue'>
         <Header as='h2' style={{textAlign: 'left'}}>Contract List:</Header>
-        <Menu fluid vertical borderless color='blue' onItemClick={() => {handleSelectChange()}}>
+        <Menu fluid vertical borderless color='blue'>
           {contractList}
         </Menu>
         <AddContractModal

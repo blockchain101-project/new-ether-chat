@@ -37,8 +37,6 @@ contract Chatnew{
     }
     
     function addFriend(address add) public onlyMember{
-        require(relationships[msg.sender][add] == RelationshipState.Non);
-        require(relationships[add][msg.sender] == RelationshipState.Non);
         
         relationships[msg.sender][add] = RelationshipState.FriendRequest;
         emit addFriendEvent(msg.sender, add);
