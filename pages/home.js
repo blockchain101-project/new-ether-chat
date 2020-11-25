@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import Web3Container from '../lib/Web3Container';
 
 function WebHome(props) {
-  const [isMetamask, setIsMetamask] = useState(true);
   const [account, setAccount] = useState('');
   const [balance, setBalance] = useState(1.0);
   const router = useRouter();
@@ -19,19 +18,10 @@ function WebHome(props) {
     setBalance(balanceInEth);
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     setAccount(props.accounts[0]);
     getEthBalance();
-    setIsMetamask(account!=null);
   }, [])
-
-  useEffect(() => {
-    if(!isMetamask){
-      router.push({
-        pathname: '/'
-      });
-    }
-  }, [isMetamask])
 
   // storeValue = async () => {
   //   const { accounts, contract } = this.props
@@ -41,7 +31,7 @@ function WebHome(props) {
 
   // getValue = async () => {
   //   const { accounts, contract } = this.props
-  //   const response = await contract.methods.get().call({ from: accounts[0] })
+  //   const response = await contract.methods.onlyMe().call({ from: accounts[0] })
   //   this.setState({ balance: response })
   // };
 
@@ -50,10 +40,10 @@ function WebHome(props) {
       <HomeHeader account={account} balance={balance} web3={props.web3} accounts={props.accounts} contract={props.contract}/>
       <Grid columns={2} style={{margin: 0, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
         <Grid.Column style={{width: '30%'}}>
-          <FriendList/>
+          <FriendList web3={props.web3} accounts={props.accounts} contract={props.contract}/>
         </Grid.Column>
         <Grid.Column style={{width: '70%'}}>
-          <Chat selectedContract={'none'}/>
+          <Chat selectedContract={'none'} web3={props.web3} accounts={props.accounts} contract={props.contract}/>
         </Grid.Column>
       </Grid>
     </Container>

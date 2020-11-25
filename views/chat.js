@@ -3,6 +3,17 @@ import {Container, Card, Segment, Label, Icon, List, Button, Grid, Input} from '
 
 function Chat(props){
   const [height, setHeight] = useState(0);
+  const [text, setText] = useState('');
+
+  const sendMessage = async (message) => {
+    const { web, accounts, contract } = props
+    const member = await contract.methods.members(accounts[0]).call({ from: accounts[0] });
+    alert(member.isMember);
+    // await contract.methods.sendMessage(accounts[0], message).send({ from: accounts[0] });
+    // contract.once('messageSentEvent', {
+    //   filter: {}}, function(error, event){ console.log(event) });
+  };
+
   useEffect(() => {
     setHeight(window.innerHeight);
   }, [])
@@ -26,7 +37,7 @@ function Chat(props){
         </List>
       </Segment>
       <Segment style={{width: '90%'}} color='blue'>
-        <Input style={{width: '100%'}} action={{color: 'blue', labelPosition: 'right', icon: 'send', content: 'Send'}}></Input>
+        <Input style={{width: '100%'}} action={{color: 'blue', labelPosition: 'right', icon: 'send', content: 'Send', onClick: (e)=>sendMessage(e.target.value)}}></Input>
       </Segment>
     </Container>
   )

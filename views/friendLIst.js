@@ -2,11 +2,12 @@ import React, {Component, useEffect, useRef, useState} from 'react'
 import { Grid, Card, List, Button, Container, Segment, Header, Modal, Label, Menu }from "semantic-ui-react"
 import AddContractModal from "./modals/AddContractModal"
 
-function FriendList(){
+function FriendList(props){
   const [height, setHeight] = useState(0);
   const [openAC, setOpenAC] = useState(false);
   const [selected, setSelected] = useState('none');
-  useEffect(() => {
+
+  useEffect(async () => {
     setHeight(window.innerHeight);
   }, [])
   
