@@ -2,7 +2,7 @@ import React, {Component, useEffect, useRef, useState} from 'react'
 import { Grid, Card, List, Button, Container, Segment, Header, Modal, Label, Menu }from "semantic-ui-react"
 import AddContractModal from "./modals/AddContractModal"
 
-const FriendList:React.FC = () => {
+function FriendList(){
   const [height, setHeight] = useState(0);
   const [openAC, setOpenAC] = useState(false);
   const [selected, setSelected] = useState('none');
@@ -18,7 +18,7 @@ const FriendList:React.FC = () => {
 
   const getContractList = () => {
     //get friend list
-    const tempList = ['asdf', 'qwer', 'zxcv'];
+    const tempList = ['0x5D6Ed5a0C6f2694459c1Ef5D03684860593EeD51', 'qwer', 'zxcv'];
     let resList = [];
     for(var i=0;i<tempList.length;i++){
       const name = tempList[i]
@@ -39,12 +39,12 @@ const FriendList:React.FC = () => {
   return (
     <Container>
       <Segment style={{width: '90%', height: ((height-150) + "px"), textAlign: 'center'}} color='blue'>
-        <Header as='h2' style={{textAlign: 'left'}}>Friend List:</Header>
+        <Header as='h2' style={{textAlign: 'left'}}>Contract List:</Header>
         <Menu fluid vertical borderless color='blue'>
           {contractList}
         </Menu>
         <AddContractModal
-          trigger={<Button color='blue' onClick={() => {openAddContract()}}>Add friend</Button>}
+          trigger={<Button color='blue' onClick={() => {openAddContract()}}>Add contract</Button>}
           open={openAC}/>
       </Segment>
     </Container>

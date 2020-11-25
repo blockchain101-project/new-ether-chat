@@ -6,21 +6,32 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploysm": "node ./contracts/compileContract.js",
+    "ethserve": "mkdir -p ganachedb && ganache-cli --db ganachedb --account=\"0xbfe038810d51b8a788e5f63d2a0822d1f8ef712a7acbbf9877013efb3c5f5514,100\"  --account=\"0xb07210851b10f884f5b4e57a8e76e717cc5cd9b496801cb93dac380747239b0f,100\"   --account=\"0x46c855cb4a30c5630b5884fde176fe6d4b2c26f12c8607452c72ca31c537120e,100\""
   },
   "dependencies": {
-    "next": "10.0.2",
+    "flux": "^3.1.3",
+    "next": "^10.0.3",
     "react": "17.0.1",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.1",
-    "styled-components": "^5.2.1"
+    "solc": "0.5.16",
+    "styled-components": "^5.2.1",
+    "typesafe-actions": "^5.1.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.9",
     "@types/react": "^17.0.0",
+    "@types/react-redux": "^7.1.11",
+    "@types/web3": "^1.2.2",
+    "ganache-cli": "^6.12.1",
     "truffle": "^5.1.54",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "web3": "^1.3.0"
   }
 }

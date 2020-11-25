@@ -30,7 +30,7 @@ contract Chatnew{
         _;
     }
     
-    function register(string name) public{
+    function register(string memory name) public{
         require(members[msg.sender].isMember == false);
         Member memory newMember = Member(name, true, 0);
         members[msg.sender] = newMember;
@@ -63,7 +63,7 @@ contract Chatnew{
         return relationships[msg.sender][a];
     }
     
-    function sendMessage(address add, string message)public onlyMember{
+    function sendMessage(address add, string memory message)public onlyMember{
         require(relationships[add][msg.sender] == RelationshipState.Friend);
         emit messageSentEvent(msg.sender, add, message);
         

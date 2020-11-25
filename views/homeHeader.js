@@ -2,25 +2,8 @@ import { useRouter } from 'next/router';
 import React, {Component, useEffect, useState} from 'react'
 import { Button, Header, Label, Menu } from 'semantic-ui-react';
 
-const HomeHeader:React.FC = () => {
-  const [isMetamask, setIsMetamask] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    if(!isMetamask){
-      router.push({
-        pathname: '/'
-      });
-    }
-  }, [])
-
-  useEffect(() => {
-    if(!isMetamask){
-      router.push({
-        pathname: '/'
-      });
-    }
-  }, [isMetamask])
+function HomeHeader(props){
+  useEffect(() => {console.log(props.account)}, [props.account])
 
   return (
     <Menu fixed='top' size='large'>
@@ -28,7 +11,7 @@ const HomeHeader:React.FC = () => {
       <Label color='blue' size='large'>Current network:</Label>
       </Menu.Item>
       <Menu.Item position='right'>
-        <Label color='blue' size='large'>0xasdfasdfasdfasdf: 0 Eth</Label>
+        <Label color='blue' size='large'>{props.account}: {props.balance} Eth</Label>
       </Menu.Item>
     </Menu>
   )

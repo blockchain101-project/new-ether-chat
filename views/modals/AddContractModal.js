@@ -1,12 +1,7 @@
 import React, { Component, useEffect, useState } from "react"
 import { Button, Label, Modal } from "semantic-ui-react"
 
-interface Prop {
-  trigger: React.ReactNode,
-  open: boolean
-}
-
-const AddContractModal:React.FC<Prop> = (props) => {
+function AddContractModal(props){
   const [open, setOpen] = useState(true);
   const [width, setWidth] = useState(0);
 

@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import 'semantic-ui-css/semantic.min.css';
 
 const Login = () => {
-  const [isMetamask, setIsMetamask] = useState(false);
+  const [isMetamask, setIsMetamask] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
