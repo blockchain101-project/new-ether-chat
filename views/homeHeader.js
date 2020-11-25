@@ -16,7 +16,6 @@ function HomeHeader(props){
       setOpenAA(true);
     }
   })
-  useEffect(() => {console.log(props.account)}, [props.account])
 
   return (
     <Container>

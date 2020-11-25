@@ -6,23 +6,33 @@ function FriendList(props){
   const [height, setHeight] = useState(0);
   const [openAC, setOpenAC] = useState(false);
   const [selected, setSelected] = useState('none');
+  const [contractList, setContractList] = useState([]);
 
   useEffect(async () => {
     setHeight(window.innerHeight);
+    const temp = await getContractList();
+    setContractList(temp);
   }, [])
   
-  useEffect(() => {}, [openAC, selected])
+  useEffect(() => {}, [openAC, selected, contractList])
 
   const openAddContract = () => {
     setOpenAC(!openAC);
   }
 
-  const getContractList = () => {
+  const getPastFriendList = async () => {
+    const { web, accounts, contract } = props;
+    return await props.contract.getPastEvents('addFriendEvent',{
+      filter: {from: accounts},
+    })
+  }
+
+  const getContractList = async () => {
     //get friend list
-    const tempList = ['0x5D6Ed5a0C6f2694459c1Ef5D03684860593EeD51', 'qwer', 'zxcv'];
+    const tempList = await getPastFriendList();
     let resList = [];
     for(var i=0;i<tempList.length;i++){
-      const name = tempList[i]
+      const name = tempList[i].returnValues[1]
       resList.push(
         <Menu.Item
           name={name}
@@ -35,8 +45,6 @@ function FriendList(props){
     return resList;
   }
 
-  const contractList = getContractList();
-
   return (
     <Container>
       <Segment style={{width: '90%', height: ((height-150) + "px"), textAlign: 'center'}} color='blue'>
@@ -46,7 +54,8 @@ function FriendList(props){
         </Menu>
         <AddContractModal
           trigger={<Button color='blue' onClick={() => {openAddContract()}}>Add contract</Button>}
-          open={openAC}/>
+          open={openAC}
+          web3={props.web3} accounts={props.accounts} contract={props.contract}/>
       </Segment>
     </Container>
   )

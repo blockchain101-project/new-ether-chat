@@ -4,6 +4,7 @@ import { Button, Label, Modal } from "semantic-ui-react"
 function AddAddressModal(props){
   const [open, setOpen] = useState(true);
   const [width, setWidth] = useState(0);
+  const [value, setValue] = useState('');
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -15,7 +16,7 @@ function AddAddressModal(props){
 
   const confirmAddAddress = async () => {
     const { web, accounts, contract } = props;
-    await contract.methods.register(accounts[0]).send({ from: accounts[0] });
+    await contract.methods.register(value).send({ from: accounts[0] });
     setOpen(!open);
   }
 
@@ -25,7 +26,8 @@ function AddAddressModal(props){
         <label>You are not register, please enter you public key below.</label>
         <br/>
         <label>Public key:</label>
-        <input size={width*5/100} placeholder='public key' style={{marginLeft: '10px'}}></input>
+        <input size={width*5/100} placeholder='public key' style={{marginLeft: '10px'}}
+        value={value} onChange={e => setValue(e.target.value)}></input>
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={() => {confirmAddAddress()}}>confirm</Button>
