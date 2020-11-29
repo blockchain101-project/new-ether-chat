@@ -32,7 +32,7 @@ const Login = () => {
       <Grid.Row centered>
         <Card color='blue'>
           <Card.Content>
-            <Card.Header as='h2' textAlign='center'>You need to login to Metamask before being able to use this app.</Card.Header>
+            <Card.Header as='h2' textAlign='center'>Loading</Card.Header>
             {/* <Form size='large' onSubmit={() => onSubmit()}>
               <Form.Field>
                 <label style={{textAlign: 'left'}}>Public key</label>
