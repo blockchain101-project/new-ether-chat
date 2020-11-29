@@ -30,23 +30,31 @@ function Chat(props){
 
   const getUserMessages = async (contractAddress) => {
     const tempMessage = await getMessage(contractAddress);
+    tempMessage.sort(function(a, b){
+      if(a[1] > b[1]) return 1;
+      if(a[1] < b[1]) return -1;
+      return 0;
+    })
+
     let tempList = [];
-
-    for (var i=0;i<tempMessage[0].length;i++) {
-      tempList.push(
-      <List.Item style={{textAlign: 'left'}}>
-        <Label size='large' color='blue'>{tempMessage[0][i]}</Label>
-      </List.Item>
-      )
+    for (var i=0;i<tempMessage.length;i++) {
+      if (tempMessage[i][0]==0){
+        tempList.push(
+          <List.Item style={{textAlign: 'right'}}>
+            <Label size='large' color='blue'>{tempMessage[i][2]}</Label>
+          </List.Item>
+          )
+      } else {
+        tempList.push(
+          <List.Item style={{textAlign: 'left'}}>
+            <Label size='large' color='blue'>{tempMessage[i][2]}</Label>
+          </List.Item>
+          )
+      }
     }
 
-    for (var i=0;i<tempMessage[1].length;i++) {
-      tempList.push(
-        <List.Item style={{textAlign: 'right'}}>
-          <Label size='large' color='blue'>{tempMessage[1][i]}</Label>
-        </List.Item>
-      )
-    }
+
+
     return tempList
   }
 
@@ -71,23 +79,22 @@ function Chat(props){
         fromBlock: 0,
         toBlock: 'latest',
     })
-    const tempMessageSent = [];
-    const tempMessageReceived = [];
+    const tempMessage = []
 
     for(var i=0;i<tempDataSent.length;i++){
       if(tempDataSent[i].returnValues[1] == id){
-        tempMessageSent.push(tempDataSent[i].returnValues[2])
+        console.log(tempDataSent[i])
+        tempMessage.push([0, tempDataSent[i].blockNumber, tempDataSent[i].returnValues[2]])
       }
     }
 
     for(var i=0;i<tempDataReceived.length;i++){
       if(tempDataReceived[i].returnValues[0] == id){
-        tempMessageReceived.push(tempDataReceived[i].returnValues[2])
+        tempMessage.push([1, tempDataReceived[i].blockNumber, tempDataReceived[i].returnValues[2]])
       }
     }
 
-    console.log(tempDataSent)
-    return [tempMessageReceived, tempMessageSent]
+    return tempMessage
   }
   
   return (
